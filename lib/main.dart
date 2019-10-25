@@ -1,21 +1,38 @@
-import 'package:english_words/english_words.dart' as prefix0;
-import 'package:flutter/material.dart';
 import 'package:english_words/english_words.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
+import 'package:flutter/cupertino.dart';
+
+
 
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
+  final materialThemeData = ThemeData(
+    primarySwatch: Colors.blue,
+    scaffoldBackgroundColor: Colors.white,
+    accentColor: Colors.blue,
+    appBarTheme: AppBarTheme(color: Colors.blue.shade600),
+    primaryColor: Colors.blue,
+    secondaryHeaderColor: Colors.blue,
+    canvasColor: Colors.blue,
+    backgroundColor: Colors.red,
+    textTheme: TextTheme().copyWith(body1: TextTheme().body1));
+final cupertinoTheme = CupertinoThemeData(
+    primaryColor: Colors.blue,
+    barBackgroundColor: Colors.white,
+    scaffoldBackgroundColor: Colors.white);
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return PlatformApp(
+        debugShowCheckedModeBanner: false,
+        android: (_) => MaterialAppData(theme: materialThemeData),
+        ios: (_) => CupertinoAppData(theme: cupertinoTheme),
         title: 'Welcome to Flutter',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
-        home: Scaffold(
-          appBar: AppBar(
-            title: const Text("Welcome to FLutter"),
+        home: PlatformScaffold(
+          appBar: PlatformAppBar(
+            title: const Text("Welcome to Flutter"),
           ),
           body: Center(
             child: RandomWords(),
